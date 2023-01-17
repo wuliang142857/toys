@@ -40,8 +40,29 @@ func GetExportIP() string {
 }
 
 func MakeSecurityGroup(client *ec2.Client, clientIP, groupIP *string, port *int32) {
-	_, err := client.AuthorizeSecurityGroupIngress(context.TODO(), &ec2.AuthorizeSecurityGroupIngressInput{
-		CidrIp:     aws.String(*clientIP + "/32"),
+	fullClientIP := *clientIP + "/32"
+	describeSecurityGroupsResponse, err := client.DescribeSecurityGroups(context.TODO(), &ec2.DescribeSecurityGroupsInput{
+		DryRun:   aws.Bool(false),
+		GroupIds: []string{*groupIP},
+	})
+	if err != nil {
+		log.Fatalf("查询安全组失败: %v", err)
+	}
+
+	for _, securityGroup := range describeSecurityGroupsResponse.SecurityGroups {
+		for _, rule := range securityGroup.IpPermissions {
+			if rule.FromPort != nil && rule.ToPort != nil && *rule.FromPort == *port && *rule.ToPort == *port {
+				for _, r := range rule.IpRanges {
+					if r.CidrIp != nil && *r.CidrIp == fullClientIP {
+						return
+					}
+				}
+			}
+		}
+	}
+
+	_, err = client.AuthorizeSecurityGroupIngress(context.TODO(), &ec2.AuthorizeSecurityGroupIngressInput{
+		CidrIp:     aws.String(fullClientIP),
 		DryRun:     aws.Bool(false),
 		FromPort:   port,
 		ToPort:     port,
