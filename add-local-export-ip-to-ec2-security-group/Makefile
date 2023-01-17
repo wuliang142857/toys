@@ -5,7 +5,7 @@ CMD_FILE 					:= $(CURRENT_PATH)/main.go
 OUTPUT_DIR					:= $(CURRENT_PATH)/output
 
 .PHONY:all
-all: build-darwin-arm64 build-darwin-amd64 build-linux-amd64 build-linux-arm64 build-linux-x86 build-windows-amd64 build-windows-x86
+all: build-darwin-arm64 build-darwin-amd64 build-linux-amd64 build-linux-armv7 build-linux-arm64 build-linux-x86 build-windows-amd64 build-windows-x86
 
 build-darwin-arm64:
 	GOOS=darwin GOARCH=arm64 go build -o ${OUTPUT_DIR}/darwin-arm64/${APP_NAME} ${CMD_FILE}
@@ -28,6 +28,9 @@ build-linux-x86:
 
 build-linux-arm64:
 	GOOS=linux GOARCH=amd64 go build -o ${OUTPUT_DIR}/linux-arm64/${APP_NAME} ${CMD_FILE}
+
+build-linux-armv7:
+	GOOS=linux GOARCH=arm GOARM=7 go build -o ${OUTPUT_DIR}/linux-armv7/${APP_NAME} ${CMD_FILE}
 
 deps:
 	go mod download
