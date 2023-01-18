@@ -561,3 +561,6 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,jetbrains+all,jetbrains+iml,jetbrains,visualstudiocode,c++,c,go,rust,java,node,groovy
 
+# 自定义
+build/*
+*/build/*
