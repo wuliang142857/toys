@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "alwaysStrict": false,
+    "noImplicitUseStrict": true,
+    "allowJs": false,
+    "checkJs": false,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "target": "esnext",
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strictNullChecks": false,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "es7",
+      "scripthost",
+      "es2018.promise",
+      "esnext", "webworker"
+    ],
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src",
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "dist",
+    "test"
+  ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "types": [
+      "@cloudflare/workers-types",
+      "@types/jest",
+      "@types/service-worker-mock"
+    ]
+}
