@@ -9,6 +9,7 @@ import {
 import {
     DescribeSecurityGroupsCommandOutput
 } from "@aws-sdk/client-ec2/dist-types/commands/DescribeSecurityGroupsCommand";
+import Uri from "jsuri";
 
 function getClientIP(request: Request): string | undefined | null {
     return request.headers.get('CF-Connecting-IP');
@@ -27,6 +28,16 @@ const awsSecurityGroupId:string = AWS_SECURITY_GROUP_ID;
 const remotePort:number = parseInt(REMOTE_PORT);
 
 async function handleRequest(request: Request): Promise<Response> {
+    const uri: Uri = new Uri(request.url);
+    if (uri.path() !== "/add-client-ip") {
+        return new Response(`unknown path: ${uri.path()}`, {
+            status: 500,
+            headers: {
+                'content-type': 'application/json;charset=UTF-8',
+              }
+        });
+    }
+
     const clientIP:string | undefined | null = getClientIP(request);
     if (!clientIP) {
         return new Response("get client ip failed", {

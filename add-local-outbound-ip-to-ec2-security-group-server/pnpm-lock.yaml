@@ -5,6 +5,8 @@ specifiers:
   '@aws-sdk/node-http-handler': ^3.226.0
   '@aws-sdk/types': ^3.226.0
   '@cloudflare/workers-types': ^2.2.2
+  '@types/jsuri': ^1.3.30
+  jsuri: ^1.3.1
   moment: ^2.29.4
   ts-loader: ^9.2.2
   typescript: ^4.3.2
@@ -15,10 +17,12 @@ dependencies:
   '@aws-sdk/client-ec2': 3.252.0
   '@aws-sdk/node-http-handler': 3.226.0
   '@aws-sdk/types': 3.226.0
+  jsuri: 1.3.1
   moment: 2.29.4
 
 devDependencies:
   '@cloudflare/workers-types': 2.2.2
+  '@types/jsuri': 1.3.30
   ts-loader: 9.4.2_3fkjkrd3audxnith3e7fo4fnxi
   typescript: 4.9.4
   webpack: 5.75.0_webpack-cli@4.10.0
@@ -844,6 +848,10 @@ packages:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
 
+  /@types/jsuri/1.3.30:
+    resolution: {integrity: sha512-n3RoOl8LHzDX7gmgxVWU09cMiUn1chW0J70N6oOptOoLt8OWvyq8lpW9Mj4xvzHqJEiOMR+J1okPSL1XeBz1uw==}
+    dev: true
+
   /@types/node/18.11.18:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
@@ -1289,6 +1297,10 @@ packages:
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
     dev: true
+
+  /jsuri/1.3.1:
+    resolution: {integrity: sha512-LLdAeqOf88/X0hylAI7oSir6QUsz/8kOW0FcJzzu/SJRfORA/oPHycAOthkNp7eLPlTAbqVDFbqNRHkRVzEA3g==}
+    dev: false
 
   /kind-of/6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
