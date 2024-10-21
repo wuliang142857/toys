@@ -28,26 +28,29 @@ def get_file_creation_time(file_path):
     year = os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(file_path))))
     return (year, month, day)
 
-def move(input_file, dst):
+def move(input_file, dst, dry_run = False):
     year, month, day = get_file_creation_time(input_file)
     target_dir = os.path.join(dst, f"{year}-{month}", f"{year}-{month}-{day}")
     logger.info(f"{input_file} -> {target_dir}")
 
-    # shutil.move(src, dst)
+    if not dry_run:
+        shutil.move(input_file, target_dir)
 
 def main():
     parser = ArgumentParser(prog="move-icloud-files-by-date", description="移动文件到指定目录")
     parser.add_argument("--src", required=True, type=str, dest="src", help="源文件路径")
     parser.add_argument("--dst", required=True, type=str, dest="dst", help="目标路径")
+    parser.add_argument("--dry-run", action="store_true", dest="dry_run", help="仅打印日志，不执行移动操作")
     
     argument = parser.parse_args()
     src = os.path.realpath(argument.src)
     dst = argument.dst
+    dry_run = argument.dry_run
     
     for root, dirnames, filenames in os.walk(src):
         for filename in filenames:
             srcFilePath = os.path.join(root, filename)
-            move(srcFilePath, dst)
+            move(srcFilePath, dst, dry_run)
     
 
 if __name__ == '__main__':
