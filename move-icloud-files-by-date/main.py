@@ -22,25 +22,32 @@ logger = logging.getLogger("parallel-imposm")
 logger.setLevel(logging.INFO)  # 设置日志级别
 logger.addHandler(handler)  # 添加 Handler
 
+def get_file_creation_time(file_path):
+    day = os.path.basename(os.path.dirname(file_path))
+    month = os.path.basename(os.path.dirname(os.path.dirname(file_path)))
+    year = os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(file_path))))
+    return (year, month, day)
+
 def move(input_file, dst):
-    creation_time = os.path.getctime(input_file)
-    target_dir = os.path.join(dst, arrow.get(creation_time).format("YYYY-MM"), arrow.get(creation_time).format("YYYY-MM-DD"))
+    year, month, day = get_file_creation_time(input_file)
+    target_dir = os.path.join(dst, f"{year}-{month}", f"{year}-{month}-{day}")
     logger.info(f"{input_file} -> {target_dir}")
 
     # shutil.move(src, dst)
 
 def main():
-    parser = ArgumentParser(prog="move-media-by-dateformat", description="移动文件到指定目录")
+    parser = ArgumentParser(prog="move-icloud-files-by-date", description="移动文件到指定目录")
     parser.add_argument("--src", required=True, type=str, dest="src", help="源文件路径")
     parser.add_argument("--dst", required=True, type=str, dest="dst", help="目标路径")
     
     argument = parser.parse_args()
-    src = argument.src
+    src = os.path.realpath(argument.src)
     dst = argument.dst
     
     for root, dirnames, filenames in os.walk(src):
         for filename in filenames:
             srcFilePath = os.path.join(root, filename)
+            move(srcFilePath, dst)
     
 
 if __name__ == '__main__':
