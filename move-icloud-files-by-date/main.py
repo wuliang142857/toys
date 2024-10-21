@@ -36,7 +36,7 @@ def move(input_file, dst, dry_run = False):
     target_file = os.path.join(target_dir, os.path.basename(input_file))
     if os.path.exists(target_file):
         name, ext = os.path.splitext(input_file)
-        target_file = f"{target_file}-{str(uuid4())}{ext}"
+        target_file = f"{name}-{str(uuid4())}{ext}"
         
     logger.info(f"{input_file} -> {target_file}")
 
