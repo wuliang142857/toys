@@ -7,6 +7,7 @@ import os
 import shutil
 from argparse import ArgumentParser
 import logging
+from uuid import uuid4
 
 # 定义一个 Formatter 对象，用于设置日志格式
 formatter = logging.Formatter(fmt='%(asctime)s %(levelname)s %(message)s',
@@ -32,10 +33,15 @@ def move(input_file, dst, dry_run = False):
     target_dir = os.path.join(dst, f"{year}-{month}", f"{year}-{month}-{day}")
     if not os.path.exists(target_dir):
         os.makedirs(target_dir, 0o755)
-    logger.info(f"{input_file} -> {target_dir}")
+    target_file = os.path.join(target_dir, os.path.basename(input_file))
+    if os.path.exists(target_file):
+        name, ext = os.path.splitext(input_file)
+        target_file = f"{target_file}-{str(uuid4())}{ext}"
+        
+    logger.info(f"{input_file} -> {target_file}")
 
     if not dry_run:
-        shutil.move(input_file, target_dir)
+        shutil.move(input_file, target_file)
 
 def main():
     parser = ArgumentParser(prog="move-icloud-files-by-date", description="移动文件到指定目录")
