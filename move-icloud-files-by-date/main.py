@@ -30,6 +30,8 @@ def get_file_creation_time(file_path):
 def move(input_file, dst, dry_run = False):
     year, month, day = get_file_creation_time(input_file)
     target_dir = os.path.join(dst, f"{year}-{month}", f"{year}-{month}-{day}")
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir, 0o755)
     logger.info(f"{input_file} -> {target_dir}")
 
     if not dry_run:
