@@ -6,7 +6,6 @@ import sys
 import os
 import shutil
 from argparse import ArgumentParser
-import argcomplete
 import logging
 
 # 定义一个 Formatter 对象，用于设置日志格式
@@ -41,8 +40,6 @@ def main():
     parser.add_argument("--src", required=True, type=str, dest="src", help="源文件路径")
     parser.add_argument("--dst", required=True, type=str, dest="dst", help="目标路径")
     parser.add_argument("--dry-run", action="store_true", dest="dry_run", help="仅打印日志，不执行移动操作")
-    
-    argcomplete.autocomplete(parser)
     
     argument = parser.parse_args()
     src = os.path.realpath(argument.src)
